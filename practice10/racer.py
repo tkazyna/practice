@@ -9,16 +9,16 @@ screen = pygame.display.set_mode((WIDTH, HEIGHT))
 clock = pygame.time.Clock()
 
 # ЗАГРУЗКА КАРТИНОК 
-background = pygame.image.load('resour/road.png')
+background = pygame.image.load("resources/road.png")
 background = pygame.transform.scale(background, (WIDTH, HEIGHT))
 
-player_img = pygame.image.load("resour/player.png")
+player_img = pygame.image.load("resources/player.png")
 player_img = pygame.transform.scale(player_img, (60, 80))
 
-enemy_img = pygame.image.load("resour/Enemy.png")
+enemy_img = pygame.image.load("resources/Enemy.png")
 enemy_img = pygame.transform.scale(enemy_img, (60, 80))
 
-coin_img = pygame.image.load("resour/coin2.png")
+coin_img = pygame.image.load("resources/coin2.png")
 coin_img = pygame.transform.scale(coin_img, (40, 40))
 
 #  ПЕРЕМЕННЫЕ 
@@ -97,3 +97,8 @@ while running:
 
 pygame.quit()
 sys.exit()
+
+
+
+
+

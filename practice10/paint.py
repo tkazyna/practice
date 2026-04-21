@@ -1,64 +1,56 @@
 import pygame
-import math
 
 pygame.init()
 
 WIDTH = 800
 HEIGHT = 600
+
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.set_caption("Paint Advanced")
+pygame.display.set_caption("Simple Paint")
 
-screen.fill("white")
+screen.fill((255, 255, 255))
 
-# текущий цвет
-color = (0, 0, 0)
+color = (0, 0, 0)   
+radius = 10       
+drawing = False    
 
-# толщина кисти
-radius = 5
+mode = "brush"    
 
-# режим рисования
-mode = "brush"
-
-drawing = False
 start_pos = None
 
-running = True
 clock = pygame.time.Clock()
+running = True
 
 while running:
     for event in pygame.event.get():
+
         if event.type == pygame.QUIT:
             running = False
 
-        # нажали мышь
+
         if event.type == pygame.MOUSEBUTTONDOWN:
             drawing = True
-            start_pos = pygame.mouse.get_pos()
+            start_pos = event.pos  
 
-        # отпустили мышь
         if event.type == pygame.MOUSEBUTTONUP:
             drawing = False
-            end_pos = pygame.mouse.get_pos()
+            end_pos = event.pos
 
-            #  RECTANGLE
-            if mode == "rectangle":
-                x = min(start_pos[0], end_pos[0])
-                y = min(start_pos[1], end_pos[1])
-                w = abs(start_pos[0] - end_pos[0])
-                h = abs(start_pos[1] - end_pos[1])
-                pygame.draw.rect(screen, color, (x, y, w, h), 2)
+            if mode == "rect":
+                rect = pygame.Rect(
+                    min(start_pos[0], end_pos[0]),
+                    min(start_pos[1], end_pos[1]),
+                    abs(start_pos[0] - end_pos[0]),
+                    abs(start_pos[1] - end_pos[1])
+                )
+                pygame.draw.rect(screen, color, rect, 2)
 
-            #  CIRCLE
-            elif mode == "circle":
-                dx = end_pos[0] - start_pos[0]
-                dy = end_pos[1] - start_pos[1]
-                radius_circle = int((dx**2 + dy**2) ** 0.5)
+            if mode == "circle":
+                radius_circle = int(((start_pos[0] - end_pos[0])**2 + (start_pos[1] - end_pos[1])**2) ** 0.5)
                 pygame.draw.circle(screen, color, start_pos, radius_circle, 2)
 
-        # клавиши
         if event.type == pygame.KEYDOWN:
 
-            #  цвета
             if event.key == pygame.K_r:
                 color = (255, 0, 0)
             if event.key == pygame.K_g:
@@ -68,32 +60,32 @@ while running:
             if event.key == pygame.K_k:
                 color = (0, 0, 0)
 
-            #  ERASER
             if event.key == pygame.K_e:
-                color = (255, 255, 255)
+                mode = "eraser"
 
-            #  очистка
             if event.key == pygame.K_c:
-                screen.fill("white")
+                screen.fill((255, 255, 255))
 
-            #  толщина
             if event.key == pygame.K_UP:
                 radius = min(radius + 2, 50)
             if event.key == pygame.K_DOWN:
                 radius = max(radius - 2, 1)
 
-            #  режимы
             if event.key == pygame.K_1:
                 mode = "brush"
             if event.key == pygame.K_2:
-                mode = "rectangle"
+                mode = "rect"
             if event.key == pygame.K_3:
                 mode = "circle"
 
-    #  кисть
-    if drawing and mode == "brush":
+    if drawing:
         mouse_pos = pygame.mouse.get_pos()
-        pygame.draw.circle(screen, color, mouse_pos, radius)
+
+        if mode == "brush":
+            pygame.draw.circle(screen, color, mouse_pos, radius)
+
+        if mode == "eraser":
+            pygame.draw.circle(screen, (255, 255, 255), mouse_pos, radius)
 
     pygame.display.flip()
     clock.tick(60)
