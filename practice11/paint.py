@@ -1,4 +1,5 @@
 import pygame
+import math
 
 pygame.init()
 
@@ -13,29 +14,50 @@ screen.fill((255, 255, 255))
 color = (0, 0, 0)   
 radius = 10       
 drawing = False    
-
-mode = "brush"    
-
+mode = "brush"     
 start_pos = None
+last_pos = None  # хранит предыдущую позицию мыши
 
 clock = pygame.time.Clock()
 running = True
 
+def draw_line_between_points(p1, p2, color, radius, mode):
+    """Рисует непрерывную линию между двумя точками"""
+    if p1 is None or p2 is None:
+        return
+    
+    # Вычисляем расстояние между точками
+    distance = int(math.hypot(p2[0] - p1[0], p2[1] - p1[1]))
+    
+    if distance == 0:
+        distance = 1
+    
+    # Рисуем круги вдоль линии для плавности
+    for i in range(distance):
+        t = i / distance
+        x = int(p1[0] + (p2[0] - p1[0]) * t)
+        y = int(p1[1] + (p2[1] - p1[1]) * t)
+        
+        if mode == "brush":
+            pygame.draw.circle(screen, color, (x, y), radius)
+        elif mode == "eraser":
+            pygame.draw.circle(screen, (255, 255, 255), (x, y), radius)
+
 while running:
     for event in pygame.event.get():
-
         if event.type == pygame.QUIT:
             running = False
 
-
         if event.type == pygame.MOUSEBUTTONDOWN:
             drawing = True
-            start_pos = event.pos  
+            start_pos = event.pos
+            last_pos = event.pos  #  запоминаем первую позицию
 
         if event.type == pygame.MOUSEBUTTONUP:
             drawing = False
             end_pos = event.pos
-
+            last_pos = None  # сбрасываем
+            
             if mode == "rect":
                 rect = pygame.Rect(
                     min(start_pos[0], end_pos[0]),
@@ -48,16 +70,12 @@ while running:
             if mode == "circle":
                 radius_circle = int(((start_pos[0] - end_pos[0])**2 + (start_pos[1] - end_pos[1])**2) ** 0.5)
                 pygame.draw.circle(screen, color, start_pos, radius_circle, 2)
-
-            # ===== НОВЫЕ ФИГУРЫ =====
             
-            # КВАДРАТ
             if mode == "square":
                 side = max(abs(end_pos[0] - start_pos[0]), abs(end_pos[1] - start_pos[1]))
                 rect = pygame.Rect(start_pos[0], start_pos[1], side, side)
                 pygame.draw.rect(screen, color, rect, 2)
 
-            # ПРЯМОУГОЛЬНЫЙ ТРЕУГОЛЬНИК
             if mode == "right_triangle":
                 pygame.draw.polygon(screen, color, [
                     start_pos,
@@ -65,7 +83,6 @@ while running:
                     end_pos
                 ], 2)
 
-            # РАВНОСТОРОННИЙ ТРЕУГОЛЬНИК
             if mode == "equilateral_triangle":
                 side = abs(end_pos[0] - start_pos[0])
                 height = int((3 ** 0.5 / 2) * side)
@@ -76,7 +93,6 @@ while running:
                 ]
                 pygame.draw.polygon(screen, color, points, 2)
 
-            # РОМБ
             if mode == "rhombus":
                 cx = (start_pos[0] + end_pos[0]) // 2
                 cy = (start_pos[1] + end_pos[1]) // 2
@@ -91,7 +107,6 @@ while running:
                 pygame.draw.polygon(screen, color, points, 2)
 
         if event.type == pygame.KEYDOWN:
-
             if event.key == pygame.K_r:
                 color = (255, 0, 0)
             if event.key == pygame.K_g:
@@ -119,7 +134,6 @@ while running:
             if event.key == pygame.K_3:
                 mode = "circle"
             
-            # ===== НОВЫЕ КЛАВИШИ ДЛЯ ФИГУР =====
             if event.key == pygame.K_4:
                 mode = "square"
             if event.key == pygame.K_5:
@@ -129,14 +143,21 @@ while running:
             if event.key == pygame.K_7:
                 mode = "rhombus"
 
-    if drawing:
+    # ← ИЗМЕНЕНО: рисуем линии вместо отдельных кругов
+    if drawing and mode in ["brush", "eraser"]:
         mouse_pos = pygame.mouse.get_pos()
-
-        if mode == "brush":
-            pygame.draw.circle(screen, color, mouse_pos, radius)
-
-        if mode == "eraser":
-            pygame.draw.circle(screen, (255, 255, 255), mouse_pos, radius)
+        
+        # Рисуем линию от предыдущей позиции до текущей
+        if last_pos:
+            draw_line_between_points(last_pos, mouse_pos, color, radius, mode)
+        else:
+            # Первая точка
+            if mode == "brush":
+                pygame.draw.circle(screen, color, mouse_pos, radius)
+            elif mode == "eraser":
+                pygame.draw.circle(screen, (255, 255, 255), mouse_pos, radius)
+        
+        last_pos = mouse_pos
 
     pygame.display.flip()
     clock.tick(60)
