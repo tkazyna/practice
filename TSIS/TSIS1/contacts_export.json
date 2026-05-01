@@ -1,0 +1,164 @@
+[
+  {
+    "first_name": "Alice",
+    "last_name": "Johnson",
+    "email": "alice@gmail.com",
+    "birthday": "1995-03-14",
+    "group": "Friend",
+    "phones": [
+      {"phone": "+77011234567", "type": "mobile"},
+      {"phone": "+77011234568", "type": "home"}
+    ]
+  },
+  {
+    "first_name": "Bob",
+    "last_name": "Smith",
+    "email": "bob@work.com",
+    "birthday": "1988-07-22",
+    "group": "Work",
+    "phones": [
+      {"phone": "+77029876543", "type": "work"}
+    ]
+  },
+  {
+    "first_name": "Carol",
+    "last_name": "White",
+    "email": "carol@gmail.com",
+    "birthday": "2000-11-05",
+    "group": "Family",
+    "phones": [
+      {"phone": "+77031112233", "type": "home"}
+    ]
+  },
+  {
+    "first_name": "David",
+    "last_name": "Brown",
+    "email": "david@gmail.com",
+    "birthday": "1992-01-30",
+    "group": "Other",
+    "phones": [
+      {"phone": "+77044455566", "type": "mobile"}
+    ]
+  },
+  {
+    "first_name": "Eve",
+    "last_name": "Davis",
+    "email": "eve@yahoo.com",
+    "birthday": "1985-09-18",
+    "group": "Work",
+    "phones": [
+      {"phone": "+77055667788", "type": "work"}
+    ]
+  },
+  {
+    "first_name": "Frank",
+    "last_name": "Miller",
+    "email": "frank@gmail.com",
+    "birthday": "1990-06-25",
+    "group": "Friend",
+    "phones": [
+      {"phone": "+77061234567", "type": "mobile"}
+    ]
+  },
+  {
+    "first_name": "Grace",
+    "last_name": "Lee",
+    "email": "grace@work.com",
+    "birthday": "1993-12-01",
+    "group": "Work",
+    "phones": [
+      {"phone": "+77072345678", "type": "work"}
+    ]
+  },
+  {
+    "first_name": "Henry",
+    "last_name": "Wilson",
+    "email": "henry@gmail.com",
+    "birthday": "1987-04-17",
+    "group": "Family",
+    "phones": [
+      {"phone": "+77083456789", "type": "home"}
+    ]
+  },
+  {
+    "first_name": "Irene",
+    "last_name": "Clark",
+    "email": "irene@gmail.com",
+    "birthday": "1998-08-09",
+    "group": "Friend",
+    "phones": [
+      {"phone": "+77094567890", "type": "mobile"}
+    ]
+  },
+  {
+    "first_name": "James",
+    "last_name": "Taylor",
+    "email": "james@outlook.com",
+    "birthday": "1983-02-28",
+    "group": "Other",
+    "phones": [
+      {"phone": "+77105678901", "type": "mobile"}
+    ]
+  },
+  {
+    "first_name": "Kate",
+    "last_name": "Anderson",
+    "email": "kate@gmail.com",
+    "birthday": "1996-07-11",
+    "group": "Family",
+    "phones": [
+      {"phone": "+77116789012", "type": "home"}
+    ]
+  },
+  {
+    "first_name": "Leo",
+    "last_name": "Martinez",
+    "email": "leo@work.com",
+    "birthday": "1991-10-03",
+    "group": "Work",
+    "phones": [
+      {"phone": "+77127890123", "type": "work"}
+    ]
+  },
+  {
+    "first_name": "Mia",
+    "last_name": "Thompson",
+    "email": "mia@yahoo.com",
+    "birthday": "2001-05-20",
+    "group": "Friend",
+    "phones": [
+      {"phone": "+77138901234", "type": "mobile"}
+    ]
+  },
+  {
+    "first_name": "Nick",
+    "last_name": "Roberts",
+    "email": "nick@gmail.com",
+    "birthday": "1984-09-14",
+    "group": "Other",
+    "phones": [
+      {"phone": "+77149012345", "type": "mobile"}
+    ]
+  },
+  {
+    "first_name": "Olivia",
+    "last_name": "Harris",
+    "email": "olivia@mail.ru",
+    "birthday": "1997-03-30",
+    "group": "Family",
+    "phones": [
+      {"phone": "+77150123456", "type": "home"}
+    ]
+  },
+  {
+    "first_name": "Sabina",
+    "last_name": "Taubay",
+    "email": "sabina@mail.com",
+    "birthday": "2015-11-28",
+    "group": "Family",
+    "phones": [
+      {"phone": "+77073151577", "type": "mobile"},
+      {"phone": "+77777777777", "type": "home"}
+    ]
+  }
+]
